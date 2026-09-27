@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Legendarybroker - Login Telegram</title></head>
+<body style="font-family:system-ui;padding:40px;max-width:600px;margin:auto">
+<h1>Entrar con Telegram</h1>
+<script async src="https://oauth.telegram.org/js/telegram-login.js?6"
+  data-client-id="8688658192"
+  data-onauth="onTelegramAuth"
+  data-request-access="write"></script>
+<script>
+async function onTelegramAuth(data){
+  if(data.error){ alert('Error: '+data.error); return; }
+  const r = await fetch('/api/verify', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id_token: data.id_token})});
+  const j = await r.json();
+  document.body.innerHTML += '<pre>'+JSON.stringify(j,null,2)+'</pre>';
+}
+</script>
+<p style="margin-top:20px;color:#666">Bot: @Legendarybroker_bot · ID 8688658192</p>
+</body>
+</html>
